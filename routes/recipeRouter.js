@@ -11,9 +11,8 @@ recipeRouter.use(bodyParser.json());
 
 recipeRouter.route('/')
 .get(function (req, res, next) {
-    Recipes.find(req.query)
-        .exec(function (err, recipe) {
-        if (err) next(err);
+    Recipes.find(req.query, function (err, recipe) {
+        if (err) return next(err);
         res.json(recipe);
     });
 })
@@ -42,10 +41,9 @@ recipeRouter.route('/')
 
 
 recipeRouter.route('/:recipeId')
-.get(Verify.verifyOrdinaryUser, function (req, res, next) {
-    Recipes.findById(req.params.recipeID)
-        .exec(function (err, recipe) {
-        if (err) next(err);
+.get(function (req, res, next) {
+    Recipes.findById(req.params.recipeID, function (err, recipe) {
+        if (err) return next(err);
         res.json(recipe);
     });
 })
