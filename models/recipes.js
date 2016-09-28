@@ -18,15 +18,9 @@ var ratingSchema = new Schema({
 });
 
 var ingredientSchema = new Schema({
-    ingredientName:  {
+    ingredientdetails:  {
         type: String,
         required: true
-    },
-    ingredientQuantity: {
-    	type: SchemaTypes.Double
-    },
-    ingredientQuantityMeasure: {
-    	type:String
     }
 }, {
     timestamps: true
@@ -51,6 +45,10 @@ var recipeSchema = new Schema({
         type: String,
         required: true
     }, 
+    how_method: {
+        type: String,
+        required: true
+    },
     public: {
         type: Boolean,
         default:false

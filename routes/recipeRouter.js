@@ -30,7 +30,7 @@ recipeRouter.route('/')
     });
 })
 
-.delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
+.delete(function (req, res, next) {
     Recipes.remove({}, function (err, resp) {
         if (err) next(err);
         res.json(resp);
@@ -42,14 +42,14 @@ recipeRouter.route('/')
 
 recipeRouter.route('/:recipeId')
 .get(function (req, res, next) {
-    Recipes.findById(req.params.recipeID, function (err, recipe) {
+    Recipes.findById(req.params.recipeId, function (err, recipe) {
         if (err) return next(err);
         res.json(recipe);
     });
 })
 
-.put(Verify.verifyOrdinaryUser,  function (req, res, next) {
-    Recipes.findByIdAndUpdate(req.params.recipeID, {
+.put(function (req, res, next) {
+    Recipes.findByIdAndUpdate(req.params.recipeId, {
         $set: req.body
     }, {
         new: true
@@ -59,7 +59,7 @@ recipeRouter.route('/:recipeId')
     });
 })
 
-.delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
+.delete(function (req, res, next) {
         Recipes.findByIdAndRemove(req.params.recipeID, function (err, resp) {
         if (err) next(err);
         res.json(resp);
@@ -81,7 +81,7 @@ recipeRouter.route('/:recipeId/ratings')
     });
 })
 
-.put(Verify.verifyOrdinaryUser, function (req, res, next) {
+.put(function (req, res, next) {
     Recipes.findById(req.params.recipeId, function (err, recipe) {
         if (err) next(err);
         req.body.postedBy = req.decoded._id;
@@ -94,7 +94,7 @@ recipeRouter.route('/:recipeId/ratings')
     });
 })
 
-.delete(Verify.verifyAdmin, function (req, res, next) {
+.delete(function (req, res, next) {
     Recipes.findById(req.params.recipeId, function (err, recipe) {
         if (err) next(err);
         for (var i = (recipe.rating.length - 1); i >= 0; i--) {
@@ -119,7 +119,7 @@ recipeRouter.route('/:recipeId/ratings')
 
 
 
-recipeRouter.route('/:recipeId/:ingredientID')
+recipeRouter.route('/:recipeId/:ingredientId')
 
 .get(Verify.verifyOrdinaryUser, function (req, res, next) {
     Recipes.findById(req.params.dishId)
