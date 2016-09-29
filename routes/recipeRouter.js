@@ -60,7 +60,7 @@ recipeRouter.route('/:recipeId')
 })
 
 .delete(function (req, res, next) {
-        Recipes.findByIdAndRemove(req.params.recipeID, function (err, resp) {
+        Recipes.findByIdAndRemove(req.params.recipeId, function (err, resp) {
         if (err) next(err);
         res.json(resp);
     });
