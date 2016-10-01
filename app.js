@@ -11,7 +11,12 @@ var authenticate = require('./authenticate');
 var config = require('./config');
 var allowCrossDomain = require('./allowCrossDomain');
 
-mongoose.connect(config.mongoUrl);
+var mongodbUri = 'mongodb://testuser:testuser@ds035026.mlab.com:35026/myrecipestore';
+
+var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
+                replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } };  
+
+mongoose.connect(mongodbUri, options);
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
